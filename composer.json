@@ -3,7 +3,13 @@
     "description": "OriginPHP Filesystem",
     "type": "library",
     "keywords": [
-        "originphp"
+        "originphp",
+        "filesystem",
+        "file",
+        "folder",
+        "chmod",
+        "chgrp",
+        "chown"
     ],
     "homepage": "https://www.originphp.com",
     "license": "MIT",

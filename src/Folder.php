@@ -158,10 +158,14 @@ class Folder
      *
      * @param string $source /var/www/tmp/my_project
      * @param string $destination project_name or /var/www/tmp/project_name
+     * @param array $options The options array supports the following keys
+     *   - recursive: default true. recursively copy the contents of folder
      * @return boolean
      */
-    public static function copy(string $source, string $destination) : bool
+    public static function copy(string $source, string $destination, array $options = []) : bool
     {
+        $options += ['recursive' => true];
+
         if (self::exists($source)) {
             if (strpos($destination, DIRECTORY_SEPARATOR) === false) {
                 $destination = pathinfo($source, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR . $destination;
@@ -171,8 +175,8 @@ class Folder
 
             $files = array_diff(scandir($source), ['.', '..']);
             foreach ($files as $filename) {
-                if (is_dir($source . DIRECTORY_SEPARATOR . $filename)) {
-                    self::copy($source . DIRECTORY_SEPARATOR . $filename, $destination . DIRECTORY_SEPARATOR . $filename);
+                if ($options['recursive'] and is_dir($source . DIRECTORY_SEPARATOR . $filename)) {
+                    self::copy($source . DIRECTORY_SEPARATOR . $filename, $destination . DIRECTORY_SEPARATOR . $filename, $options);
                     continue;
                 }
                 @copy($source . DIRECTORY_SEPARATOR . $filename, $destination . DIRECTORY_SEPARATOR . $filename);

@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 /**
  * OriginPHP Framework
- * Copyright 2018 - 2019 Jamiel Sharief.
+ * Copyright 2018 - 2020 Jamiel Sharief.
  *
  * Licensed under The MIT License
  * The above copyright notice and this permission notice shall be included in all copies or substantial
@@ -44,7 +44,7 @@ class Folder
      */
     public static function exists(string $directory) : bool
     {
-        return file_exists($directory) and is_dir($directory);
+        return file_exists($directory) && is_dir($directory);
     }
 
     /**
@@ -63,10 +63,10 @@ class Folder
             $results = [];
             $files = array_diff(scandir($directory), ['.', '..']);
             foreach ($files as $file) {
-                if ($options['recursive'] and ! is_file($directory . DIRECTORY_SEPARATOR . $file)) {
+                if ($options['recursive'] && ! is_file($directory . DIRECTORY_SEPARATOR . $file)) {
                     $results = array_merge($results, static::list($directory . DIRECTORY_SEPARATOR . $file, $options));
                 }
-                if (! $options['directories'] and ! is_file($directory . DIRECTORY_SEPARATOR . $file)) {
+                if (! $options['directories'] && ! is_file($directory . DIRECTORY_SEPARATOR . $file)) {
                     continue;
                 }
                 $stats = stat($directory . DIRECTORY_SEPARATOR . $file);
@@ -175,7 +175,7 @@ class Folder
 
             $files = array_diff(scandir($source), ['.', '..']);
             foreach ($files as $filename) {
-                if ($options['recursive'] and is_dir($source . DIRECTORY_SEPARATOR . $filename)) {
+                if ($options['recursive'] && is_dir($source . DIRECTORY_SEPARATOR . $filename)) {
                     self::copy($source . DIRECTORY_SEPARATOR . $filename, $destination . DIRECTORY_SEPARATOR . $filename, $options);
                     continue;
                 }

@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 /**
  * OriginPHP Framework
- * Copyright 2018 - 2019 Jamiel Sharief.
+ * Copyright 2018 - 2020 Jamiel Sharief.
  *
  * Licensed under The MIT License
  * The above copyright notice and this permission notice shall be included in all copies or substantial
@@ -41,7 +41,7 @@ class File
      */
     public static function exists(string $filename) : bool
     {
-        return file_exists($filename) and is_file($filename);
+        return file_exists($filename) && is_file($filename);
     }
 
     /**
@@ -54,7 +54,7 @@ class File
     public static function write(string $filename, string $contents) : bool
     {
         $folder = pathinfo($filename, PATHINFO_DIRNAME);
-        if (is_dir($folder) and is_writeable($folder)) {
+        if (is_dir($folder) && is_writeable($folder)) {
             return (bool) file_put_contents($filename, $contents, LOCK_EX);
         }
 
@@ -71,7 +71,7 @@ class File
     public static function append(string $filename, string $contents) : bool
     {
         $folder = pathinfo($filename, PATHINFO_DIRNAME);
-        if (is_dir($folder) and is_writeable($folder)) {
+        if (is_dir($folder) && is_writeable($folder)) {
             return (bool) file_put_contents($filename, $contents, FILE_APPEND | LOCK_EX);
         }
 

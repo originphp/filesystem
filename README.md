@@ -240,7 +240,9 @@ This will return an array of arrays of `FileObjects`
     Origin\Filesystem\FileObject Object
     (
         'name' => 'foo.txt',
-        'directory' => '/var/www/my_directory'
+        'directory' => '/var/www/my_directory',
+        'path' =>  '/var/www/my_directory/foo.txt',
+        'extension' => 'txt',
         'timestamp' => 14324234,
         'size' => 1234,
         'type' => 'file'

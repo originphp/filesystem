@@ -72,10 +72,12 @@ class Folder
                 $results[] = new FileObject([
                     'name' => $file,
                     'directory' => $directory,
+                    'path' => $directory . DIRECTORY_SEPARATOR . $file,
+                    'extension' => pathinfo($file, PATHINFO_EXTENSION),
                     'timestamp' => $stats['mtime'],
                     'size' => $stats['size'],
                     'type' => is_dir($directory. DIRECTORY_SEPARATOR . $file) ? 'directory' : 'file',
-                ], $directory . DIRECTORY_SEPARATOR . $file);
+                ]);
             }
 
             return $results;

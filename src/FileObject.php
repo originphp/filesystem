@@ -23,12 +23,10 @@ class FileObject implements ArrayAccess
 {
     private $data = [];
 
-    private $path = null;
 
-    public function __construct(array $data, string $path)
+    public function __construct(array $data)
     {
         $this->data = $data;
-        $this->path = $path;
     }
 
     public function offsetSet($offset, $value)
@@ -87,6 +85,6 @@ class FileObject implements ArrayAccess
 
     public function __toString()
     {
-        return $this->path;
+        return $this->data['path'];
     }
 }

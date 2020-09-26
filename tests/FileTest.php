@@ -93,12 +93,12 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $tmpfile = sys_get_temp_dir() . '/' . $filename;
         File::write($tmpfile, $data);
         $expected = [
-            'path' => sys_get_temp_dir(),
-            'filename' => $filename,
-            'extension' => 'txt',
-            'type' => 'text/plain',
-            'size' => '1333336',
+            'name' => $filename,
+            'directory' => sys_get_temp_dir(),
             'timestamp' => fileatime($tmpfile),
+            'size' => '1333336',
+            'extension' => 'txt',
+            'type' => 'text/plain'
         ];
         $this->assertEquals($expected, File::info($tmpfile));
     }

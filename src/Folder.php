@@ -70,13 +70,13 @@ class Folder
                     continue;
                 }
                 $stats = stat($directory . DIRECTORY_SEPARATOR . $file);
-                $results[] = [
+                $results[] = new FileObject([
                     'name' => $file,
-                    'path' => $directory,
+                    'directory' => $directory,
                     'timestamp' => $stats['mtime'],
                     'size' => $stats['size'],
-                    'type' => is_dir($directory. DIRECTORY_SEPARATOR . $file)?'directory':'file',
-                ];
+                    'type' => is_dir($directory. DIRECTORY_SEPARATOR . $file) ? 'directory' : 'file',
+                ], $directory . DIRECTORY_SEPARATOR . $file);
             }
 
             return $results;

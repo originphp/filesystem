@@ -264,18 +264,18 @@ class File
      * @param string $filename
      * @return array
      */
-    public static function info(string $filename) : array
+    public static function info(string $filename): array
     {
         if (self::exists($filename)) {
             $pathinfo = pathinfo($filename);
 
             return [
-                'path' => $pathinfo['dirname'],
-                'filename' => $pathinfo['basename'],
+                'name' => $pathinfo['basename'],
+                'directory' => $pathinfo['dirname'],
+                'timestamp' => filemtime($filename),
+                'size' => filesize($filename),
                 'extension' => $pathinfo['extension'] ?? null,
                 'type' => mime_content_type($filename),
-                'size' => filesize($filename),
-                'timestamp' => filemtime($filename),
             ];
         }
         throw new NotFoundException(sprintf('%s could not be found', $filename));

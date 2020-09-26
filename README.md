@@ -27,23 +27,25 @@ use Origin\Filesystem\File
 
 ### Info
 
+> As of 2.0 path was renamed to directory and filename was renamed to name
+
 To get information about a file
 
 ```php
 $info = File::info('/var/www/config/insurance.csv');
 ```
 
-Which will return this
+Which will return an array like this
 
 ```
 Array
 (
     [name] => insurance.csv
-    [path] => /var/www/config
+    [directory] => /var/www/config
+    [timestamp] => 1560067334
+    [size] => 1878
     [extension] => csv
     [type] => text/plain
-    [size] => 1878
-    [timestamp] => 1560067334
 )
 ```
 
@@ -223,25 +225,30 @@ $result = Folder::exists('/path/somedirectory');
 
 ### List
 
+> As of 2.0 path was renamed to directory and each file is a FileObject
+
 To list all contents of a directory
 
 ```php
 $results = Folder::list('/path/somedirectory');
 ```
 
-This will return an array of arrays of files, like this
+This will return an array of arrays of `FileObjects`
 
 ```php
 [
-    [
+    Origin\Filesystem\FileObject Object
+    (
         'name' => 'foo.txt',
-        'path' => '/var/www/my_directory'
-        'size' => 1234,
+        'directory' => '/var/www/my_directory'
         'timestamp' => 14324234,
+        'size' => 1234,
         'type' => 'file'
-    ]
+    )
 ]
 ```
+
+When the `FileObject` is converted to a string it will become a path e.g. `/var/www/my_directory/foo.txt`.
 
 You can also get the listing recursively
 

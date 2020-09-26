@@ -1,5 +1,4 @@
 <?php
-declare(strict_types = 1);
 /**
  * OriginPHP Framework
  * Copyright 2018 - 2020 Jamiel Sharief.
@@ -12,7 +11,7 @@ declare(strict_types = 1);
  * @link        https://www.originphp.com
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-
+declare(strict_types = 1);
 namespace Origin\Filesystem;
 
 use Origin\Filesystem\Exception\NotFoundException;
@@ -28,7 +27,7 @@ class Folder
      *  - mode: default 0775. Folder permissions
      * @return boolean
      */
-    public static function create(string $directory, array $options = []) : bool
+    public static function create(string $directory, array $options = []): bool
     {
         $options += ['recursive' => false,'mode' => 0775];
         defer($a, 'umask', umask(0));
@@ -42,7 +41,7 @@ class Folder
      * @param string $directory
      * @return boolean
      */
-    public static function exists(string $directory) : bool
+    public static function exists(string $directory): bool
     {
         return file_exists($directory) && is_dir($directory);
     }
@@ -56,7 +55,7 @@ class Folder
      *  - recursive: default false. Recursively gets contents
      * @return array
      */
-    public static function list(string $directory, array $options = []) : array
+    public static function list(string $directory, array $options = []): array
     {
         $options += ['directories' => false,'recursive' => false];
         if (self::exists($directory)) {
@@ -94,7 +93,7 @@ class Folder
      *    - recursive: If set to true, it will delete all contents and sub folders
      * @return bool
      */
-    public static function delete(string $directory, array $options = []) : bool
+    public static function delete(string $directory, array $options = []): bool
     {
         $options += ['recursive' => false];
         if (self::exists($directory)) {
@@ -122,7 +121,7 @@ class Folder
      * @param string $to  directory name. project_name
      * @return boolean
      */
-    public static function rename(string $directory, string $to) : bool
+    public static function rename(string $directory, string $to): bool
     {
         if (self::exists($directory)) {
             if (strpos($to, DIRECTORY_SEPARATOR) === false) {
@@ -141,7 +140,7 @@ class Folder
      * @param string $destination /var/www/tmp/documents
      * @return bool
      */
-    public static function move(string $source, string $destination) : bool
+    public static function move(string $source, string $destination): bool
     {
         if (self::exists($source)) {
             if (strpos($destination, DIRECTORY_SEPARATOR) === false) {
@@ -162,7 +161,7 @@ class Folder
      *   - recursive: default true. recursively copy the contents of folder
      * @return boolean
      */
-    public static function copy(string $source, string $destination, array $options = []) : bool
+    public static function copy(string $source, string $destination, array $options = []): bool
     {
         $options += ['recursive' => true];
 
@@ -193,7 +192,7 @@ class Folder
     * @param string $directory filename with full path
     * @return string
     */
-    public static function mode(string $directory) : string
+    public static function mode(string $directory): string
     {
         if (self::exists($directory)) {
             return  (string) substr(sprintf('%o', fileperms($directory)), -4);
@@ -207,7 +206,7 @@ class Folder
     * @param string $directory
     * @return string|null
     */
-    public static function perms(string $directory) : ?string
+    public static function perms(string $directory): ?string
     {
         return static::mode($directory);
     }
@@ -218,7 +217,7 @@ class Folder
       * @param string $directory filename with full path
       * @return string|null
       */
-    public static function owner(string $directory) : ?string
+    public static function owner(string $directory): ?string
     {
         if (self::exists($directory)) {
             return posix_getpwuid(fileowner($directory))['name'];
@@ -232,7 +231,7 @@ class Folder
      * @param string $directory filename with full path
      * @return string|null
      */
-    public static function group(string $directory) : ?string
+    public static function group(string $directory): ?string
     {
         if (self::exists($directory)) {
             return posix_getgrgid(filegroup($directory))['name'];
@@ -249,7 +248,7 @@ class Folder
      *  - recursive: If set to true, it will delete all contents and sub folders
     * @return bool
     */
-    public static function chmod(string $directory, int $mode, array $options = []) : bool
+    public static function chmod(string $directory, int $mode, array $options = []): bool
     {
         $options += ['recursive' => false];
 
@@ -279,7 +278,7 @@ class Folder
      *  - recursive: default false. If set to true, it will delete all contents and sub folders
      * @return bool
      */
-    public static function chown(string $directory, string $user, array $options = []) : bool
+    public static function chown(string $directory, string $user, array $options = []): bool
     {
         $options += ['recursive' => false];
         if (self::exists($directory)) {
@@ -308,7 +307,7 @@ class Folder
     *  - recursive: If set to true, it will delete all contents and sub folders
     * @return bool
     */
-    public static function chgrp(string $directory, string $group = null, array $options = []) : bool
+    public static function chgrp(string $directory, string $group = null, array $options = []): bool
     {
         $options += ['recursive' => false];
         if (self::exists($directory)) {

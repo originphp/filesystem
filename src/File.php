@@ -1,5 +1,4 @@
 <?php
-declare(strict_types = 1);
 /**
  * OriginPHP Framework
  * Copyright 2018 - 2020 Jamiel Sharief.
@@ -12,7 +11,7 @@ declare(strict_types = 1);
  * @link        https://www.originphp.com
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-
+declare(strict_types = 1);
 namespace Origin\Filesystem;
 
 use Origin\Filesystem\Exception\NotFoundException;
@@ -25,7 +24,7 @@ class File
      * @param string $filename
      * @return string $contents
      */
-    public static function read(string $filename) : string
+    public static function read(string $filename): string
     {
         if (is_readable($filename)) {
             return file_get_contents($filename);
@@ -39,7 +38,7 @@ class File
      * @param string $filename
      * @return bool
      */
-    public static function exists(string $filename) : bool
+    public static function exists(string $filename): bool
     {
         return file_exists($filename) && is_file($filename);
     }
@@ -51,7 +50,7 @@ class File
      * @param string $contents
      * @return boolean
      */
-    public static function write(string $filename, string $contents) : bool
+    public static function write(string $filename, string $contents): bool
     {
         $folder = pathinfo($filename, PATHINFO_DIRNAME);
         if (is_dir($folder) && is_writeable($folder)) {
@@ -68,7 +67,7 @@ class File
      * @param string $contents
      * @return bool
      */
-    public static function append(string $filename, string $contents) : bool
+    public static function append(string $filename, string $contents): bool
     {
         $folder = pathinfo($filename, PATHINFO_DIRNAME);
         if (is_dir($folder) && is_writeable($folder)) {
@@ -84,7 +83,7 @@ class File
      * @param string $filename
      * @return bool
      */
-    public static function delete(string $filename) : bool
+    public static function delete(string $filename): bool
     {
         if (file_exists($filename)) {
             return unlink($filename);
@@ -98,7 +97,7 @@ class File
      * @param string $data Data to place in the temporary file
      * @return string $filename A temporary file
      */
-    public static function tmp(string $data = null) : string
+    public static function tmp(string $data = null): string
     {
         $filename = sys_get_temp_dir() . DIRECTORY_SEPARATOR . bin2hex(random_bytes(9));
         if ($data) {
@@ -115,7 +114,7 @@ class File
      * @param string $to new filename
      * @return bool
      */
-    public static function rename(string $from, string $to) : bool
+    public static function rename(string $from, string $to): bool
     {
         if (self::exists($from)) {
             if (strpos($to, DIRECTORY_SEPARATOR) === false) {
@@ -134,7 +133,7 @@ class File
     * @param string $destination filename with full path
     * @return bool
     */
-    public static function move(string $source, string $destination) : bool
+    public static function move(string $source, string $destination): bool
     {
         if (self::exists($source)) {
             return @rename($source, $destination);
@@ -149,7 +148,7 @@ class File
      * @param string $destination filename with or without full path (same directory)
      * @return bool
      */
-    public static function copy(string $source, string $destination) : bool
+    public static function copy(string $source, string $destination): bool
     {
         if (self::exists($source)) {
             if (strpos($destination, DIRECTORY_SEPARATOR) === false) {
@@ -168,7 +167,7 @@ class File
        * @param int $mode e.g 0755 (remember 0 infront)
        * @return bool
        */
-    public static function chmod(string $filename, int $mode) : bool
+    public static function chmod(string $filename, int $mode): bool
     {
         if (self::exists($filename)) {
             return @chmod($filename, $mode);
@@ -183,7 +182,7 @@ class File
     * @param string $user  e.g. root, www-data
     * @return bool
     */
-    public static function chown(string $filename, string $user) : bool
+    public static function chown(string $filename, string $user): bool
     {
         if (self::exists($filename)) {
             return @chown($filename, $user);
@@ -198,7 +197,7 @@ class File
      * @param string $group  e.g. root, www-data
      * @return bool
      */
-    public static function chgrp(string $filename, string $group) : bool
+    public static function chgrp(string $filename, string $group): bool
     {
         if (self::exists($filename)) {
             return @chgrp($filename, $group);
@@ -212,7 +211,7 @@ class File
      * @param string $filename filename with full path
      * @return string
      */
-    public static function mode(string $filename) : string
+    public static function mode(string $filename): string
     {
         if (self::exists($filename)) {
             return (string) substr(sprintf('%o', fileperms($filename)), -4);
@@ -226,7 +225,7 @@ class File
      * @param string $filename
      * @return string
      */
-    public static function perms(string $filename) : string
+    public static function perms(string $filename): string
     {
         return static::mode($filename);
     }
@@ -237,7 +236,7 @@ class File
      * @param string $filename filename with full path
      * @return string
      */
-    public static function owner(string $filename) : string
+    public static function owner(string $filename): string
     {
         if (self::exists($filename)) {
             return posix_getpwuid(fileowner($filename))['name'];
@@ -250,7 +249,7 @@ class File
      * @param string $filename filename with full path
      * @return string
      */
-    public static function group(string $filename) : string
+    public static function group(string $filename): string
     {
         if (self::exists($filename)) {
             return posix_getgrgid(filegroup($filename))['name'];

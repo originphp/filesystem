@@ -225,7 +225,7 @@ $result = Folder::exists('/path/somedirectory');
 
 ### List
 
-> As of 2.0 path was renamed to directory and each file is a FileObject
+> As of version 2.0 released 26.09.20 list results are different, path now includes the filename.
 
 To list all contents of a directory
 
@@ -251,6 +251,12 @@ This will return an array of arrays of `FileObjects`
 ```
 
 When the `FileObject` is converted to a string it will become a path e.g. `/var/www/my_directory/foo.txt`.
+
+```php
+foreach(Folder::list('/data') as $file){
+    $contents = file_get_contents($file); // converted to string automatically
+}
+```
 
 You can also get the listing recursively
 

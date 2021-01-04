@@ -186,7 +186,7 @@ class FolderTest extends \PHPUnit\Framework\TestCase
         Folder::create($tmp);
 
         $owner = Folder::owner($tmp);
-        $this->assertRegExp('/^[a-z0-9]+$/i', $owner);
+        $this->assertMatchesRegularExpression('/^[a-z0-9]+$/i', $owner);
         $this->assertTrue(Folder::chown($tmp, $owner));
     }
 
@@ -230,7 +230,7 @@ class FolderTest extends \PHPUnit\Framework\TestCase
         Folder::create($tmp);
 
         $group = Folder::group($tmp);
-        $this->assertRegExp('/^[a-z0-9]+$/i', $group);
+        $this->assertMatchesRegularExpression('/^[a-z0-9]+$/i', $group);
         $this->assertTrue(Folder::chgrp($tmp, $group));
     }
 

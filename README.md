@@ -1,7 +1,7 @@
 # Filesystem
 
 ![license](https://img.shields.io/badge/license-MIT-brightGreen.svg)
-[![build](https://travis-ci.org/originphp/filesystem.svg?branch=master)](https://travis-ci.org/originphp/filesystem)
+[![build](https://github.com/originphp/filesystem/workflows/CI/badge.svg)](https://github.com/originphp/filesystem/actions)
 [![coverage](https://coveralls.io/repos/github/originphp/filesystem/badge.svg?branch=master)](https://coveralls.io/github/originphp/filesystem?branch=master)
 
 Filesystem includes the `File` and `Folder` classes for working with your filesystem.
@@ -254,7 +254,7 @@ When the `FileObject` is converted to a string it will become a path e.g. `/var/
 
 ```php
 foreach(Folder::list('/data') as $file){
-    $contents = file_get_contents($file); // converted to string automatically
+    $contents = file_get_contents($file->path); // or (string) $file
 }
 ```
 

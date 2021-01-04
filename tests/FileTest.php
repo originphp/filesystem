@@ -179,7 +179,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $filename = File::tmp('data');
         $owner = File::owner($filename);
-        $this->assertRegExp('/^[a-z0-9]+$/i', $owner);
+        $this->assertMatchesRegularExpression('/^[a-z0-9]+$/i', $owner);
         $this->assertTrue(File::chown($filename, $owner));
     }
 
@@ -202,7 +202,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $filename = File::tmp('data');
         $group = File::group($filename);
-        $this->assertRegExp('/^[a-z0-9]+$/i', $group);
+        $this->assertMatchesRegularExpression('/^[a-z0-9]+$/i', $group);
         $this->assertTrue(File::chgrp($filename, $group));
     }
     public function testGroupException()

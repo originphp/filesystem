@@ -104,6 +104,14 @@ class FolderTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(file_exists($tmp . 'docs2/archive/file2.txt'));
     }
 
+    public function testCopyFolderExists()
+    {
+        $tmp = sys_get_temp_dir() . '/' . uniqid();
+        mkdir($tmp);
+        $this->assertTrue(Folder::copy(__DIR__, $tmp));
+        $this->assertFileExists($tmp . '/FolderTest.php');
+    }
+
     public function testCopyException()
     {
         $this->expectException(NotFoundException::class);

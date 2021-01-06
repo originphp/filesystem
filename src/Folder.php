@@ -18,6 +18,8 @@ use Origin\Filesystem\Exception\NotFoundException;
 
 class Folder
 {
+    const MODE = 0775;
+    
     /**
      * Creates a folder or folders recursively
      *
@@ -29,7 +31,7 @@ class Folder
      */
     public static function create(string $directory, array $options = []): bool
     {
-        $options += ['recursive' => false,'mode' => 0775];
+        $options += ['recursive' => false,'mode' => self::MODE];
         defer($a, 'umask', umask(0));
 
         return @mkdir($directory, $options['mode'], $options['recursive']); # use@ No such file or directory
@@ -43,7 +45,7 @@ class Folder
      */
     public static function exists(string $directory): bool
     {
-        return file_exists($directory) && is_dir($directory);
+        return is_dir($directory);
     }
 
     /**
@@ -172,8 +174,10 @@ class Folder
                 $destination = pathinfo($source, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR . $destination;
             }
 
-            @mkdir($destination);
-
+            if (!is_dir($destination)) {
+                mkdir($destination, self::MODE);
+            }
+           
             $files = array_diff(scandir($source), ['.', '..']);
             foreach ($files as $filename) {
                 if ($options['recursive'] && is_dir($source . DIRECTORY_SEPARATOR . $filename)) {

@@ -174,8 +174,8 @@ class Folder
                 $destination = pathinfo($source, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR . $destination;
             }
 
-            if (!is_dir($destination)) {
-                mkdir($destination, self::MODE);
+            if (! is_dir($destination)) {
+                @mkdir($destination, self::MODE);
             }
            
             $files = array_diff(scandir($source), ['.', '..']);
@@ -201,7 +201,7 @@ class Folder
     public static function mode(string $directory): string
     {
         if (self::exists($directory)) {
-            return  (string) substr(sprintf('%o', fileperms($directory)), -4);
+            return (string) substr(sprintf('%o', fileperms($directory)), -4);
         }
         throw new NotFoundException(sprintf('%s could not be found', $directory));
     }

@@ -15,6 +15,7 @@ declare(strict_types = 1);
 namespace Origin\Filesystem;
 
 use Origin\Filesystem\Exception\NotFoundException;
+use function Origin\Defer\defer;
 
 class Folder
 {
